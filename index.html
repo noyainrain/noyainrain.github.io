@@ -1,0 +1,46 @@
+---
+title: Stream
+---
+
+<style>
+    .noya-stream-posts {
+        padding: 0;
+        list-style: none;
+    }
+
+    .noya-stream-post header time {
+        color: #aaa;
+    }
+</style>
+
+<h1>{{ page.title }}</h1>
+
+<ul class="noya-stream-posts">
+    {% if paginator.previous_page %}
+        <li>
+            <p>
+                <a href="{{ paginator.previous_page_path }}">Next <i class="fa fa-forward"></i></a>
+            </p>
+        </li>
+    {% endif %}
+
+    {% for post in paginator.posts %}
+        <li class="noya-stream-post">
+            <header>
+                <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+                <time datetime="{{ post.date | date_to_xmlschema }}">
+                    {{ post.date | date_to_string }}
+                </time>
+            </header>
+            {{ post.content }}
+        </li>
+    {% endfor %}
+
+    {% if paginator.next_page %}
+        <li>
+            <p>
+                <a href="{{ paginator.next_page_path }}"><i class="fa fa-backward"></i> Previous</a>
+            </p>
+        </li>
+    {% endif %}
+</ul>

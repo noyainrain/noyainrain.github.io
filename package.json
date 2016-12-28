@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "open-sans-fontface": "^1.4",
+        "font-awesome": "^4.7"
+    }
+}

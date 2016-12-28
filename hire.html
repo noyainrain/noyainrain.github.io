@@ -1,0 +1,149 @@
+---
+title: Hire
+---
+
+<style>
+    .noya-hire-title {
+        display: block;
+    }
+
+    .noya-hire-title p {
+        margin: 0;
+    }
+
+    .noya-hire-notice {
+        margin: 3rem 0;
+        text-align: center;
+    }
+
+    .noya-hire-notice table {
+        margin: 1.5rem auto;
+        text-align: left;
+    }
+
+    .noya-hire-available {
+        font-size: 1.33em;
+    }
+
+    .noya-hire-contact p {
+        margin: calc(1.5rem / 4) 0;
+        justify-content: center;
+    }
+</style>
+
+<header class="noya-hire-title">
+    <h1>Sven</h1>
+    <p>Full-Stack software developer, Berlin</p>
+</header>
+
+<blockquote>
+    An architecture that breaks a complex problem into simple components, a clear and intuitive user
+    interface, clean code for maintainability and security, relevant documentation, automated
+    testing and deployment for reliability, improvements through rapid prototyping – these are the
+    ingredients to great software.
+</blockquote>
+
+<div class="noya-hire-notice">
+    <p class="noya-hire-available">
+        {% if site.available == true %}
+            <i class="fa fa-battery"></i> Available for hire
+        {% elsif site.available == false %}
+            <i class="fa fa-battery-empty"></i> Currently not available for hire
+            <i class="fa fa-frown-o"></i>
+        {% else %}
+            <i class="fa fa-battery-half"></i> Available for hire from {{ site.available }}
+        {% endif %}
+    </p>
+
+    <table>
+        <tr>
+            <td><i class="fa fa-fw fa-clock-o"></i> Capacity</td>
+            <td>
+                <ul>
+                    <li>~ 12h/w for short- or long-term projects</li>
+                    <li>~ 24h/w for short-term projects</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td><i class="fa fa-fw fa-home"></i> Location</td>
+            <td>Remote or on-site (Berlin)</td>
+        </tr>
+        <tr class="hire-rate">
+            <td><i class="fa fa-fw fa-money"></i> Rate</td>
+            <td>
+                Depends on project details
+                <small>
+                    Average rate of a software developer in Berlin is ~ 70€/h
+                    <a
+                        href="https://www.gulp.de/cgi-gulp/trendneu.exe/MONEYFORMDLL?txtPosition=Softwareentwickler&txtFachSchwer=python+java&lstvAndOr=oder"
+                        target="_blank">
+                        [GULP]
+                    </a>
+                </small>
+            </td>
+        </tr>
+    </table>
+
+    <div class="noya-hire-contact">
+        <p class="actions">
+            <a class="action" href="mailto:sven@inrain.org" target="_blank"
+               title="Get in touch via email">
+                <i class="fa fa-envelope"></i> Get in touch
+            </a>
+            <a class="action" href="https://twitter.com/noyainrain" target="_blank"
+               title="Get in touch via Twitter">
+                <i class="fa fa-fw fa-twitter"></i>
+            </a>
+            <a class="action" href="https://telegram.me/noyainrain" target="_blank"
+               title="Get in touch via Telegram">
+                <i class="fa fa-fw fa-telegram"></i>
+            </a>
+        </p>
+        <p><small>Please include a short description of the project's content and scope.</small></p>
+    </div>
+</div>
+
+<h2>Experience</h2>
+
+<p>A selection of projects I've worked on and related experience:</p>
+
+<ul class="object-list">
+    {% include project.html
+        title='Meetling' logo='/assets/images/meetling.svg' url='https://meetling.org/'
+        code='https://github.com/noyainrain/meetling' time='2015 - Present'
+        description='Web app for collaboratively preparing meetings.' language='Python, JavaScript'
+        framework='Tornado, HTML5' database='Redis' api='RESTful web API' %}
+    {% include project.html
+        title='Wall' url='https://github.com/noyainrain/wall'
+        code='https://github.com/noyainrain/wall' time='2013 - 2015'
+        description='Digital wall (display) that can be controlled remotely, for example via mobile.'
+        language='Python, JavaScript' framework='Tornado, HTML5' database='Redis'
+        api='WebSocket API' %}
+    {% include project.html
+        title='Humboldt University Berlin' employer=true time='2013 - 2016'
+        description='Integrated the application procedure for students with the national university application service. Built a prototype of a modern university application platform.'
+        language='Java' framework='Jersey' database='PostgreSQL' %}
+    <li>
+        <i class="fa fa-globe"></i>
+        <div>
+            <p>
+                Open source contributions:
+                <a href="https://github.com/helpyio/helpy" target="_blank">Helpy</a>,
+                <a href="https://github.com/coders4help/volunteer_planner" target="_blank">Volunteer Planner</a>,
+                <a href="https://github.com/webcomponents/webcomponentsjs" target="_blank">webcomponents.js</a>,
+                …
+            </p>
+        </div>
+    </li>
+    <li>
+        <i class="fa fa-heart"></i>
+        <div>
+            <p>
+                Tools I enjoy working with: Linux, Vim (editor), Git (version control), Sphinx
+                (documentation), selenium-webdriver (UI testing), Buildbot / Travis CI (build
+                automation), …
+            </p>
+        </div>
+    </li>
+</ul>

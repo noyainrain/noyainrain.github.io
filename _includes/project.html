@@ -1,0 +1,44 @@
+<li class="noya-project{% if include.employer %} noya-project-employer{% endif %}">
+    {% if include.logo %}
+        <img src="{{ include.logo }}" />
+    {% else %}
+        <i class="fa fa-tag"></i>
+    {% endif %}
+
+    <div>
+        <header>
+            <h1>
+                {% if include.url %}
+                    <a href="{{ include.url }}" target="_blank">{{ include.title }}</a>
+                {% else %}
+                    {{ include.title }}
+                {% endif %}
+            </h1>
+            {% if include.code %}
+                <a href="{{ include.code }}" target="_blank"><i class="fa fa-github"></i> Code</a>
+            {% endif %}
+            <span>{{ include.time }}</span>
+        </header>
+
+        <p>{{ include.description }}</p>
+
+        <p>
+            <small>
+                {% if include.language %}
+                    <span title="Language"><i class="fa fa-code"></i> {{ include.language }}</span>
+                {% endif %}
+                {% if include.framework %}
+                    <span title="Framework"><i class="fa fa-cog"></i> {{ include.framework }}</span>
+                {% endif %}
+                {% if include.database %}
+                    <span title="Database">
+                        <i class="fa fa-database"></i> {{ include.database }}
+                    </span>
+                {% endif %}
+                {% if include.api %}
+                    <span title="API"><i class="fa fa-exchange"></i> {{ include.api }}</span>
+                {% endif %}
+            </small>
+        </p>
+    </div>
+</li>

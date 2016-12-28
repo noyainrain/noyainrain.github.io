@@ -1,0 +1,20 @@
+---
+layout: page
+---
+
+<style>
+    .noya-post-publish-time {
+        color: #aaa;
+    }
+</style>
+
+<h1>{{ page.title }}</h1>
+
+<p class="noya-post-publish-time" title="Date published">
+    <i class="fa fa-calendar"></i>
+    <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date_to_long_string }}
+    </time>
+</p>
+
+{{ content }}

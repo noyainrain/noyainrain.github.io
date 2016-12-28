@@ -1,0 +1,19 @@
+defaults:
+    - scope:
+          type: pages
+      values:
+          layout: page
+    - scope:
+          type: posts
+      values:
+          layout: post
+exclude:
+    - package.json
+gems:
+    - jekyll-paginate
+paginate: 10
+paginate_path: /:num
+# States if I am available for hire. true means I'm currently available, false means I'm not and a
+# string means I'm only available at a later time (given by the string, e.g. 'summer' or
+# 'June 2017').
+available: May 2017
