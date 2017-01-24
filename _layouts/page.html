@@ -1,7 +1,8 @@
 ---
-title: echo Sven\'s thoughts &gt; noyainrain.github.io
-description: Sven's personal website
 ---
+
+{% capture title %}{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}{% endcapture %}
+{% assign description = page.description | default: page.excerpt | default: site.description | strip_html %}
 
 <!DOCTYPE html>
 
@@ -9,17 +10,28 @@ description: Sven's personal website
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width: device-width, initial-scale=1" />
-        <meta
-            name="description"
-            content="{{ page.description | default: page.excerpt | default: layout.description | strip_html }}" />
-        <title>{% if page.title %}{{ page.title }} - {% endif %}{{ layout.title }}</title>
+        <meta name="description" content="{{ description }}" />
+        {% if page.date %}
+            <meta property="og:type" content="article" />
+            <meta property="article:modified_time" content="{{ page.date | date_to_xmlschema }}" />
+        {% else %}
+            <meta property="og:type" content="website" />
+        {% endif %}
+        <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+        <meta property="og:title" content="{{ title }}" />
+        <meta property="og:description" content="{{ description }}" />
+        <meta property="og:image"
+              content="{{ page.image | default: 'logo.png' | prepend: '/assets/images/' | prepend: site.url }}" />
+        <meta property="twitter:card" content="summary" />
+
+        <title>{{ title }}</title>
         <link rel="stylesheet" href="/assets/noya.css" />
     </head>
 
     <body>
         <header class="noya-page-header">
             <div class="noya-page-header-content">
-                <h1><a href="/">{{ layout.title }}</a></h1>
+                <h1><a href="/">echo Sven\'s thoughts &gt; {{ site.title }}</a></h1>
                 <a class="noya-page-hire" href="/hire">
                     {% if site.available == true %}
                         <i class="fa fa-battery"></i>
