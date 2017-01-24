@@ -1,0 +1,21 @@
+---
+---
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>{{ site.url }}</id>
+    <title>{{ site.title }}</title>
+    <subtitle>{{ site.description }}</subtitle>
+    <logo>/assets/images/logo.png</logo>
+    <updated>{{ site.time | date_to_xmlschema }}</updated>
+    <link rel="alternate" href="/" />
+
+    {% for post in site.posts limit:10 %}
+        <entry>
+            <id>{{ site.url }}{{ post.url }}</id>
+            <title>{{ post.title }}</title>
+            <updated>{{ post.date | date_to_xmlschema }}</updated>
+            <link rel="alternate" href="{{ post.url }}" />
+            <content type="html">{{ post.content | escape }}</content>
+        </entry>
+    {% endfor %}
+</feed>
