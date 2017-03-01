@@ -117,6 +117,14 @@ blockquote::after {
     content: close-quote;
 }
 
+iframe {
+    display: block;
+    width: 70ch;
+    max-width: 100%;
+    height: calc(9 / 16 * 70ch);
+    border: none;
+}
+
 a {
     color: #6cd10a;
     text-decoration: none;
