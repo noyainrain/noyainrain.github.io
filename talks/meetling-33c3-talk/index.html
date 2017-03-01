@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Meetling</title>
+        <link rel="stylesheet" href="css/reveal.css" />
+        <link rel="stylesheet" href="css/theme/black.css" />
+
+        <script>
+            let link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = location.search.includes('print-pdf') ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.querySelector('head').appendChild(link);
+        </script>
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <p><small>many</small></p>
+                    <h2>Meetings are broken</h2>
+                    <p><small>in many ways</small></p>
+                    <img class="stretch" src="images/meme.png" />
+                </section>
+
+                <section>
+                    <h2>Some problems</h2>
+                    <dl>
+                        <dt>Transparency</dt>
+                        <dd>No agenda or not known by participants</dd>
+                        <dt>Relevancy</dt>
+                        <dd>Topics not relevant to all participants</dd>
+                        <dt>Workload</dt>
+                        <dd>Preparation is done by a single person</dd>
+                        <dt>...</dt>
+                    <dl>
+                </section>
+
+                <section>
+                    <h2>Solution?</h2>
+                    <p>Let participants <strong>take part in the preparation</strong></p>
+                    <p>
+                        Make the meeting <em>transparent</em>, <em>relevant</em> and
+                        <em>distribute the workload</em>
+                    </p>
+                </section>
+
+                <section>
+                    <img
+                        style="height: 5em; margin: 0; border: none; box-shadow: none; background: none;"
+                        src="images/icon.svg" />
+                    <h1>Meetling</h1>
+                    <p>Web app for collaboratively preparing meetings</p>
+                </section>
+
+                <section>
+                    <h2>About Meetling</h2>
+                    <ul>
+                        <li>
+                            Collaboratively draft an agenda, let participants propose and edit
+                            agenda items
+                         </li>
+                        <li>Share meetings by link (no registration required)</li>
+                        <li>Simple to use</li>
+                        <li class="fragment">Stack: Python, Tornado, Redis, JavaScript</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <img class="stretch" src="images/screenshot.png" />
+                </section>
+
+                <section>
+                    <h2>Go play</h2>
+                    <p>Use it - it's free:</p>
+                    <p><a href="https://meetling.org/">meetling.org</a></p>
+                    <p>Contribute - it's open source:</p>
+                    <p>
+                        <a href="https://github.com/noyainrain/meetling">
+                            github.com/noyainrain/meetling
+                        </a>
+                    </p>
+                    <p>Get in touch:</p>
+                    <p>
+                        <a href="https://twitter.com/NoyaInRain">@NoyaInRain</a> |
+                        <a href="https://gitter.im/meetling">gitter.im/meetling</a>
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <script src="js/reveal.js"></script>
+        <script>
+            Reveal.initialize({history: true});
+        </script>
+    </body>
+</html>
