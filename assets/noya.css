@@ -144,6 +144,10 @@ small {
     font-size: 0.875em;
 }
 
+code {
+    font: 0.875rem / 1.5 monospace;
+}
+
 i {
     color: #aaa;
 }
