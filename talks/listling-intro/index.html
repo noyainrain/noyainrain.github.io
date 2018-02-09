@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Listling intro</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css">
+        <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js" defer="defer"></script>
+        <style>
+            .subtle {
+                color: #888;
+            }
+
+            .negative {
+                color: indianred;
+            }
+
+            .reveal ul.fa-ul {
+                list-style-type: none;
+                margin-left: 2.5em;
+            }
+
+            .list-with-caption {
+                display: inline-flex;
+                flex-flow: column;
+            }
+
+            .reveal section .with-image {
+                display: flex;
+                align-items: start;
+                text-align: left;
+            }
+
+            .reveal section .with-image > img {
+                flex: none;
+                width: 33%;
+                margin: 15px;
+            }
+
+            .reveal section img.logo {
+                height: 5em;
+                border: none;
+                box-shadow: none;
+                background: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Low-Threshold online collaboration</h1>
+                </section>
+
+                <section>
+                    <h2>Setting</h2>
+                    <p>Group of people with different backgrounds</p>
+                    <p>
+                        Simple use case for online collaboration
+                        <span class="subtle">(e.g. shared grocery list, group to-do list, …)</span>
+                    </p>
+                    <div class="fragment list-with-caption">
+                        Need tool, preferably low-threshold:
+                        <ul>
+                            <li>Simple to use</li>
+                            <li>No registration required</li>
+                            <li>Free <span class="subtle">(for basic features)</span></li>
+                        </ul>
+                    </div>
+                    <p class="fragment"><strong>What options are available?</strong></p>
+                </section>
+
+                <section>
+                    <h2>Pad (text editor)</h2>
+                    <div class="with-image">
+                        <div>
+                            <p>Example: <a href="http://etherpad.org/">Etherpad</a></p>
+                            <p>Good fit for editing free text</p>
+                            <p class="fragment">
+                                <span class="negative">But:</span> Too little structure for many use
+                                cases <span class="subtle">(e.g. cumbersome to order items)</span>
+                            </p>
+                        </div>
+                        <img src="images/etherpad.png" alt="Etherpad screenshot">
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Spreadsheet</h2>
+                    <div class="with-image">
+                        <div>
+                            <p>
+                                Example:
+                                <a href="https://www.google.com/sheets/about/">Google Sheets</a>
+                            </p>
+                            <p>Good fit for tabular data and calculations</p>
+                            <p class="fragment">
+                                <span class="negative">But:</span> Just too much for many use cases
+                            </p>
+                        </div>
+                        <img src="images/google-sheets.png" alt="Google Sheets screenshot">
+                    </div>
+                </section>
+
+               <section>
+                    <h2>How about a shared list?</h2>
+                    <div class="fragment">
+                        <p>Fits diverse use cases:</p>
+                        <ul class="fa-ul">
+                            <li><i class="fas fa-li fa-archive"></i> Collection</li>
+                            <li>
+                                <i class="fas fa-li fa-check"></i> To-Do list
+                                <span class="subtle">(check)</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-li fa-thumbs-up"></i> Poll
+                                <span class="subtle">(vote)</span>
+                            </li>
+                        </ul>
+                        <ul class="fragment fa-ul">
+                            <li><i class="fas fa-li fa-shopping-cart"></i> Shopping list</li>
+                            <li>
+                                <i class="fas fa-li fa-play"></i> Playlist
+                                <span class="subtle">(play)</span>
+                            </li>
+                            <li>…</li>
+                        </ul>
+                        <p class="fragment">Fills the gap between pads and spreadsheets</p>
+                    </div>
+                </section>
+
+                <section>
+                    <img class="logo" src="images/listling.svg" alt="Listling logo" />
+                    <h1>Listling</h1>
+                    <p>Collaborative lists</p>
+                    <small class="fragment">
+                        powered by Open Listling <span class="subtle">(open source)</span>
+                    </small>
+                </section>
+
+                <section>
+                    <h2>Demo</h2>
+                    <iframe class="stretch" src="https://listling.org/"></iframe>
+                </section>
+
+                <section>
+                    <h2>Fin</h2>
+                    <p>Try it: <a href="https://listling.org/">listling.org</a></p>
+                    <p>
+                        Contribute:
+                        <a href="https://github.com/noyainrain/listling">
+                            <i class="fab fa-github" title="GitHub"></i> noyainrain/listling
+                        </a>
+                    </p>
+                    <p>
+                        Get in touch:
+                        <a href="https://webchat.freenode.net/?randomnick=1&channels=%23listling">
+                            <i class="fas fa-comments" title="IRC"></i> #listling on freenode
+                        </a>
+                        ·
+                        <a href="https://twitter.com/noyainrain">
+                            <i class="fab fa-twitter" title="Twitter"></i> noyainrain
+                        </a>
+                    </p>
+                    <img class="fragment" src="images/thank-you.gif" alt="Thank you!" />
+                </section>
+            </div>
+        </div>
+
+        <script src="js/reveal.js"></script>
+        <script>
+            Reveal.initialize({history: true});
+        </script>
+    </body>
+</html
