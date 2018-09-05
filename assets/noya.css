@@ -308,3 +308,7 @@ i {
 .noya-log-issue-dev-done i {
     color: var(--noya-color-primary);
 }
+
+.noya-log-issue i + span {
+    display: none;
+}
