@@ -17,4 +17,8 @@ layout: page
     </time>
 </p>
 
+{% if page.log %}
+    {% include log.html log=page.log %}
+{% endif %}
+
 {{ content }}

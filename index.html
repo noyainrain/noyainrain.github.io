@@ -35,6 +35,11 @@ layout: page
                     {{ post.date | date_to_string }}
                 </time>
             </header>
+
+            {% if post.log %}
+                {% include log.html log=post.log %}
+            {% endif %}
+
             {{ post.content }}
         </li>
     {% endfor %}

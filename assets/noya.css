@@ -1,6 +1,10 @@
 @import url('/node_modules/open-sans-fontface/open-sans.css');
 @import url('/node_modules/font-awesome/css/font-awesome.min.css');
 
+html {
+    --noya-color-primary: #6cd10a;
+}
+
 /* ---- General ---- */
 
 * {
@@ -126,13 +130,13 @@ iframe {
 }
 
 a {
-    color: #6cd10a;
+    color: var(--noya-color-primary);
     text-decoration: none;
 }
 
 a:hover {
     color: #333;
-    background: #6cd10a;
+    background: var(--noya-color-primary);
 }
 
 a i {
@@ -161,7 +165,7 @@ i {
 }
 
 .fa-battery {
-    color: #6cd10a;
+    color: var(--noya-color-primary);
 }
 
 /* --- Action --- */
@@ -288,4 +292,19 @@ i {
 .noya-page-hire {
     margin-left: calc(1.5rem / 4);
     white-space: nowrap;
+}
+
+/* --- Log --- */
+
+.noya-log {
+    padding: 0;
+    list-style: none;
+}
+
+.noya-log-issue i {
+    color: inherit;
+}
+
+.noya-log-issue-dev-done i {
+    color: var(--noya-color-primary);
 }
