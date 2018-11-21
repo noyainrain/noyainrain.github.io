@@ -1,7 +1,7 @@
 <ul class="noya-log">
     {% for issue in include.log %}
-        {% assign icon = issue.type | replace: "dev-done", "check-circle" | replace: "dev-in-progress", "laptop" | replace: "dev-experimental", "flask" | replace: "finance", "money" | replace: "other", "caret-right" %}
-        {% assign title = issue.type | replace: "dev-done", "Done" | replace: "dev-in-progress", "In-Progress" | replace: "dev-experimental", "Experimental" | replace: "finance", "Finance" | replace: "other", "Other" %}
+        {% assign icon = issue.type | replace: "dev-done", "check-circle" | replace: "dev-in-progress", "laptop" | replace: "dev-experimental", "flask" | replace: "finance", "money" | replace: "pause", "pause-circle" | replace: "other", "caret-right" %}
+        {% assign title = issue.type | replace: "dev-done", "Done" | replace: "dev-in-progress", "In-Progress" | replace: "dev-experimental", "Experimental" | replace: "finance", "Finance" | replace: "pause", "Pause" | replace: "other", "Other" %}
         <li class="noya-log-issue noya-log-issue-{{ issue.type }}">
             <i class="fa fa-fw fa-{{ icon }}" title="{{ title }}"></i><span>[{{ title }}]</span>
             {% if issue.project %}{{ issue.project }}:{% endif %}
