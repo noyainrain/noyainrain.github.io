@@ -27,6 +27,7 @@ header,
 p,
 ul,
 table,
+figure,
 blockquote {
     margin: 1.5rem 0;
 }
@@ -106,6 +107,26 @@ table ul {
 
 table small {
     display: block;
+}
+
+figure {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+figure img {
+    flex: auto;
+    width: 0;
+}
+
+figure img ~ img {
+    margin-left: 1px;
+}
+
+figure figcaption {
+    width: 100%;
+    font-size: 0.875em;
+    color: #aaa;
 }
 
 blockquote {
