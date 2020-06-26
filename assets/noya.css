@@ -240,10 +240,6 @@ i {
     text-align: center;
 }
 
-.object-list > li > img {
-    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
-}
-
 .object-list header,
 .object-list p,
 .object-list > li > :first-child {
@@ -260,12 +256,6 @@ i {
 }
 
 /* --- Project --- */
-
-.noya-project.noya-project-employer h1::before {
-    content: '@ ';
-    font-weight: normal;
-    white-space: pre;
-}
 
 .noya-project header span {
     color: #aaa;
