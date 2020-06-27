@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Hire Sven
-description: Sven is a full-stack software developer from Berlin.
+description: Sven is a full-stack software developer and freelancer from Berlin.
 ---
 
 <style>
@@ -11,6 +11,7 @@ description: Sven is a full-stack software developer from Berlin.
 
     .noya-hire-title p {
         margin: 0;
+        white-space: normal;
     }
 
     .noya-hire-notice {
@@ -34,15 +35,15 @@ description: Sven is a full-stack software developer from Berlin.
 </style>
 
 <header class="noya-hire-title">
-    <h1>Sven</h1>
-    <p>Full-Stack software developer, Berlin</p>
+    <h1>Sven Pfaller</h1>
+    <p>Full-Stack software developer, freelancer, Berlin</p>
 </header>
 
 <blockquote>
-    An architecture that breaks a complex problem into simple components, a clear and intuitive user
-    interface, clean code for maintainability and security, relevant documentation, automated
-    testing and deployment for reliability, improvements through rapid prototyping – these are the
-    ingredients to great software.
+    An architecture that breaks a complex problem into simple components, clear and intuitive user
+    interface design, clean code for maintainability and security, relevant documentation, automated
+    testing and deployment for reliability, improvements through rapid prototyping – these are, in
+    my experience, integral values to build decent software.
 </blockquote>
 
 <div class="noya-hire-notice">
@@ -60,12 +61,7 @@ description: Sven is a full-stack software developer from Berlin.
     <table>
         <tr>
             <td><i class="fa fa-fw fa-clock-o"></i> Capacity</td>
-            <td>
-                <ul>
-                    <li>~ 12h/w for short- or long-term projects</li>
-                    <li>~ 24h/w for short-term projects</li>
-                </ul>
-            </td>
+            <td>~ 8 h/w</td>
         </tr>
         <tr>
             <td><i class="fa fa-fw fa-home"></i> Location</td>
@@ -73,24 +69,16 @@ description: Sven is a full-stack software developer from Berlin.
         </tr>
         <tr class="hire-rate">
             <td><i class="fa fa-fw fa-money"></i> Rate</td>
-            <td>
-                Depends on project details
-                <small>
-                    Average rate of a software developer in Berlin is ~ 70€/h
-                    <a
-                        href="https://www.gulp.de/cgi-gulp/trendneu.exe/MONEYFORMDLL?txtPosition=Softwareentwickler&txtFachSchwer=python+java&lstvAndOr=oder"
-                        target="_blank">
-                        [GULP]
-                    </a>
-                </small>
-            </td>
+            <td>~ 80 €/h</td>
         </tr>
     </table>
 
     <div class="noya-hire-contact">
         <p class="actions">
-            <a class="action" href="mailto:sven@inrain.org" target="_blank"
-               title="Get in touch via email">
+            <a
+                class="action" href="mailto:sven.pfaller@gmail.com" target="_blank"
+                title="Get in touch via email"
+            >
                 <i class="fa fa-envelope"></i> Get in touch
             </a>
             <a class="action" href="https://twitter.com/noyainrain" target="_blank"
@@ -111,28 +99,69 @@ description: Sven is a full-stack software developer from Berlin.
 <p>A selection of projects I've worked on and related experience:</p>
 
 <ul class="object-list">
-    {% include project.html
-        title='Meetling' logo='/assets/images/meetling.svg' url='https://meetling.org/'
-        code='https://github.com/noyainrain/meetling' time='2015 - Present'
-        description='Web app for collaboratively preparing meetings.' language='Python, JavaScript'
-        framework='Tornado, HTML5' database='Redis' api='RESTful web API' %}
-    {% include project.html
-        title='Wall' url='https://github.com/noyainrain/wall'
-        code='https://github.com/noyainrain/wall' time='2013 - 2015'
-        description='Digital wall (display) that can be controlled remotely, for example via mobile.'
-        language='Python, JavaScript' framework='Tornado, HTML5' database='Redis' api='WebSocket' %}
-    {% include project.html
-        title='Humboldt University Berlin' employer=true time='2013 - 2016'
-        description='Integrated the application procedure for students with the national university application service. Built a prototype of a modern university application platform.'
-        language='Java' framework='Jersey' database='PostgreSQL' api='SOAP' %}
+    {%
+        include project.html
+        title='Listling'
+        logo='/assets/images/listling.svg'
+        url='https://listling.org/'
+        code='https://github.com/noyainrain/listling'
+        time='2017 - Present'
+        description='Web app to make and edit lists collaboratively.'
+        language='Python, JavaScript'
+        framework='Tornado, HTML5'
+        database='Redis'
+        api='RESTful web API'
+    %}
+    {%
+        include project.html
+        title='Freelance software developer @ bexio'
+        time='2017 - 2018'
+        description='Arrange payment of wages from payroll via both banking interface and accounting software. Book wages and employee insurances in accounting software, handling VAT. Introduce task management for employers.'
+        language='Scala, TypeScript'
+        framework='Play, Angular'
+        database='PostgreSQL'
+        api='RESTful web API, DTA'
+    %}
+    {%
+        include project.html
+        title='Meetling'
+        logo='/assets/images/meetling.svg'
+        url='https://meetling.org/'
+        code='https://github.com/noyainrain/meetling'
+        time='2015 - 2017'
+        description='Web app for collaboratively preparing meetings.'
+        language='Python, JavaScript'
+        framework='Tornado, HTML5'
+        database='Redis'
+        api='RESTful web API'
+    %}
+    {%
+        include project.html
+        title='Software developer @ Humboldt-Universität zu Berlin'
+        time='2013 - 2016'
+        description='Integrate the application procedure for students with the national university application service. Build a prototype of a modern university application platform.'
+        language='Java'
+        framework='Jersey'
+        database='PostgreSQL'
+        api='SOAP'
+    %}
+    <li>
+        <i class="fa fa-graduation-cap"></i>
+        <div>
+            <p>
+                Education: Diplom Informatik (~ M.Sc. in Computer Science), 2012,
+                Friedrich-Alexander-Universität Erlangen-Nürnberg
+            </p>
+        </div>
+    </li>
     <li>
         <i class="fa fa-globe"></i>
         <div>
             <p>
                 Open source contributions:
+                <a href="https://github.com/tornadoweb/tornado" target="_blank">Tornado</a>,
+                <a href="https://github.com/Pikaday/Pikaday" target="_blank">Pikaday</a>,
                 <a href="https://github.com/helpyio/helpy" target="_blank">Helpy</a>,
-                <a href="https://github.com/coders4help/volunteer_planner" target="_blank">Volunteer Planner</a>,
-                <a href="https://github.com/webcomponents/webcomponentsjs" target="_blank">webcomponents.js</a>,
                 …
             </p>
         </div>
@@ -142,8 +171,8 @@ description: Sven is a full-stack software developer from Berlin.
         <div>
             <p>
                 Tools I enjoy working with: Linux, Vim (editor), Git (version control), Sphinx
-                (documentation), selenium-webdriver (UI testing), Buildbot / Travis CI (build
-                automation), nginx (web server), …
+                (documentation), selenium-webdriver (UI testing), Travis CI (build automation),
+                NGINX (web server), GTD (productivity), …
             </p>
         </div>
     </li>
