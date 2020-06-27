@@ -1,10 +1,12 @@
 /* TODO */
 
 class Encounter {
-    constructor(device, startTime, endTime) {
+    constructor(device, startTime, endTime, powerOut, powerIn) {
         this.device = device;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.powerOut = powerOut;
+        this.powerIn = powerIn;
     }
 }
 
@@ -18,7 +20,7 @@ class EncounterUI extends HTMLElement {
         self.addEventListener("error", event => report(event.error));
         self.addEventListener("unhandledrejection", event => report(event.reason));
 
-        this._encounters = new Map();
+        this._encounters = null;
         this._scan = null;
 
         if (!navigator.bluetooth) {
@@ -28,12 +30,17 @@ class EncounterUI extends HTMLElement {
 
         document.querySelector("button").addEventListener("click", async () => {
             // const scan = await navigator.bluetooth.requestLEScan({acceptAllAdvertisements: true});
+            this._encounters = new Map();
             const filters = [{services: [0xFD6F]}];
             this._scan = await navigator.bluetooth.requestLEScan({filters});
         });
     }
 
     connectedCallback() {
+        if (!navigator.bluetooth) {
+            return;
+        }
+
         navigator.bluetooth.addEventListener("advertisementreceived", event => {
             // const decoder = new TextDecoder();
             // const KEY = "0000fd6f-0000-1000-8000-00805f9b34fb";
@@ -55,10 +62,12 @@ class EncounterUI extends HTMLElement {
             const now = new Date();
             let encounter = this._encounters.get(event.device.id);
             if (!encounter) {
-                encounter = new Encounter(event.device.id, now, now);
+                encounter = new Encounter(event.device.id, now, now, event.txPower, event.rssi);
                 this._encounters.set(encounter.device, encounter);
             }
             encounter.endTime = now;
+            encounter.powerOut = event.txPower;
+            encounter.powerIn = event.rssi;
 
             const ul = this.querySelector("ul");
             ul.textContent = "";
@@ -68,7 +77,7 @@ class EncounterUI extends HTMLElement {
                 const duration = Math.floor(
                     (encounter.endTime.valueOf() - encounter.startTime.valueOf()) / 1000
                 );
-                li.textContent = `${encounter.device}: ${duration}s`;
+                li.textContent = `${encounter.device}: ${duration} s ${encounter.powerIn}/${encounter.powerOut} dBm`;
                 ul.appendChild(li);
             }
         });
