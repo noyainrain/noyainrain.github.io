@@ -1,0 +1,12 @@
+{
+    "name": "Proximity",
+    "description": "Scan for nearby devices participating in Exposure Notifications.",
+    "icons": [
+        {"src": "icon-small.png", "sizes": "16x16"},
+        {"src": "icon-large.png", "sizes": "512x512"}
+    ],
+    "theme_color": "mediumorchid",
+    "background_color": "#333",
+    "start_url": "index.html",
+    "display": "standalone"
+}

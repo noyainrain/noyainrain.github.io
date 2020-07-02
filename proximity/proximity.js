@@ -1,20 +1,10 @@
 /* TODO */
 
-class Encounter {
-    constructor(device, startTime, endTime, powerOut, powerIn) {
-        this.device = device;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.powerOut = powerOut;
-        this.powerIn = powerIn;
-    }
-}
-
 class Scan {
     constructor(startTime, bleScan) {
         this.startTime = startTime;
         this.endTime = null;
-        this.encounters = new Map();
+        this.devices = new Map();
         this.bleScan = bleScan;
     }
 }
@@ -29,30 +19,53 @@ class ProximityUI extends HTMLElement {
         self.addEventListener("error", event => report(event.error));
         self.addEventListener("unhandledrejection", event => report(event.reason));
 
+        (async () => {
+            await navigator.serviceWorker.register("service.js");
+        })();
+
         this._scan = null;
         this._renderInterval = null;
 
-        if (!navigator.bluetooth) {
-            this.classList.add("proximity-ui-incompatible");
-            return;
-        }
+        document.querySelector(".proximity-ui-scan").addEventListener("click", async () => {
+            if (!navigator.bluetooth) {
+                this.classList.add("proximity-ui-in-compatibility");
+                return;
+            }
 
-        document.querySelector("button").addEventListener("click", async () => {
             if (this._scan && !this._scan.endTime) {
                 this._scan.bleScan.stop();
-                this._scan.endTime = new Date();
-                clearInterval(this._renderInterval);
+                this._onStop();
             } else {
-                const filters = [{services: [0xFD6F]}];
-                // this._scan = await navigator.bluetooth.requestLEScan({acceptAllAdvertisements: true});
-                const bleScan = await navigator.bluetooth.requestLEScan({filters});
-                this._scan = new Scan(new Date(), bleScan);
-                this.classList.add("proximity-ui-has-scan");
+                try {
+                    const filters = [{services: [0xFD6F]}];
+                    const bleScan = await navigator.bluetooth.requestLEScan({filters});
+                    this._scan = new Scan(new Date(), bleScan);
+                    this.classList.add("proximity-ui-has-scan");
+                } catch (e) {
+                    if (e instanceof DOMException && e.name === "NotAllowedError") {
+                        return;
+                    }
+                    // Chrome errors contradicting spec:
+                    // - InvalidStateError if user cancels
+                    // - NotFoundError if bluetooth off
+                    throw e;
+                }
                 this._renderInterval = setInterval(() => this._render(), 1000);
+                this.classList.add("proximity-ui-scanning");
                 this._render();
             }
-            this.classList.toggle("proximity-ui-scanning", !this._scan.endTime);
         });
+
+        document.querySelector("button").addEventListener(
+            "click", () => this.classList.add("proximity-ui-in-about")
+        );
+        document.querySelector(".proximity-ui-dialogs").addEventListener(
+            "click", () => {
+                if (!this.querySelector(".proximity-ui-dialog-selectable").contains(event.target)) {
+                    this.classList.remove("proximity-ui-in-about", "proximity-ui-in-compatibility")
+                }
+            }
+        );
     }
 
     connectedCallback() {
@@ -61,68 +74,48 @@ class ProximityUI extends HTMLElement {
         }
 
         navigator.bluetooth.addEventListener("advertisementreceived", event => {
-            // const decoder = new TextDecoder();
+            this._scan.devices.set(event.device.id, {id: event.device.id, rssi: event.rssi});
             // const KEY = "0000fd6f-0000-1000-8000-00805f9b34fb";
-            // li = new HTMLLIElement();
-            // if (KEY in event.serviceData) {
-                // data = decoder.decode(event.serviceData[key]);
-            /*const keys = Array.from(event.serviceData.keys()).map(k => [k, typeof k]);
-            let data = new DataView(event.serviceData.get(KEY).buffer, 0, 16);
-            data = decoder.decode(data);
-            const encounter = `${event.device.id} ${data}`;
-            if (!encounters.has(encounter)) {
-                encounters.add(encounter);
-                // li.textContent = `${event.device.id} ${event.name} ${event.device.name} ${event.uuids} | ${keys} | ${data} .`;
-                const li = document.createElement("li");
-                li.textContent = encounter;
-                document.querySelector("ul").appendChild(li);
-            }*/
-
-            const now = new Date();
-            let encounter = this._scan.encounters.get(event.device.id);
-            if (!encounter) {
-                encounter = new Encounter(event.device.id, now, now, event.txPower, event.rssi);
-                this._scan.encounters.set(encounter.device, encounter);
-            }
-            encounter.endTime = now;
-            encounter.powerOut = event.txPower;
-            encounter.powerIn = event.rssi;
+            // let data = new DataView(event.serviceData.get(KEY).buffer, 0, 16);
+            // const decoder = new TextDecoder();
+            // data = decoder.decode(data);
         });
 
-        // this.querySelector("button").click();
+        addEventListener("blur", () => {
+            if (this._scan && !this._scan.endTime) {
+                this._onStop();
+            }
+        });
+    }
+
+    _onStop() {
+        this._scan.endTime = new Date();
+        clearInterval(this._renderInterval);
+        this.classList.remove("proximity-ui-scanning");
+        this._render();
     }
 
     _render() {
-        const p = this.querySelector(".proximity-ui-scan");
+        const p = this.querySelector(".proximity-ui-scan-info");
         const endTime = this._scan.endTime || new Date();
         const duration = Math.floor((endTime.valueOf() - this._scan.startTime.valueOf()) / 1000);
-        // p.textContent = `Scan on ${this._scan.startTime.toLocaleString()} for ${duration} s with ${this._scan.encounters.size} device(s):`;
-        p.textContent = `${this._scan.encounters.size} device(s) on ${this._scan.startTime.toLocaleString()} in ${duration} s`;
+        const startTime = this._scan.startTime.toLocaleString("en", {
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            hour12: false
+        });
+        p.textContent = `${this._scan.devices.size} device(s) on ${startTime} in ${duration} s`;
 
         const ul = this.querySelector("ul");
         ul.textContent = "";
-        for (let encounter of this._scan.encounters.values()) {
-            // li.textContent = `${encounter.device}: ${encounter.startTime} - ${encounter.endTime}`;
-            /*const duration = Math.floor(
-                (encounter.endTime.valueOf() - encounter.startTime.valueOf()) / 1000
-            );*/
-            // li.textContent = `${encounter.device}: ${duration} s ${encounter.powerIn}/${encounter.powerOut} dBm`;
-
+        for (let device of this._scan.devices.values()) {
             const li = document.importNode(document.querySelector("template").content, true);
-            li.querySelector("span").textContent = encounter.device;
-             li.querySelector("small").textContent = `${encounter.powerIn} / ${encounter.powerOut} dBm`;
+            li.querySelector("span").textContent = device.id;
+            li.querySelector("small").textContent = `${device.rssi} dBm`;
             ul.appendChild(li);
         }
     }
-
-    /*async connectedCallback() {
-        const scan = await navigator.bluetooth.requestLEScan({acceptAllAdvertisements: true});
-        navigator.bluetooth.addEventListener("advertisementreceived", event => {
-            // li = new HTMLLIElement();
-            const li = document.createElement("li");
-            li.textContent = event;
-            document.querySelector("ul").appendChild(li);
-        });
-    }*/
 }
 customElements.define("proximity-ui", ProximityUI);

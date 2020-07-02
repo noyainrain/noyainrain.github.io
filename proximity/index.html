@@ -3,8 +3,18 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="Scan for nearby devices participating in Exposure Notifications."
+        />
+        <meta name="theme-color" content="mediumorchid" />
+
         <title>Proximity</title>
-        <!--<script type="module" src="bluetooth.js"></script>-->
+
+        <link rel="manifest" href="manifest.webmanifest" />
+        <link rel="icon" sizes="16x16" href="icon-small.png" />
+        <link rel="icon" sizes="512x512" href="icon-large.png" />
+
         <script type="module" src="proximity.js"></script>
 
         <style>
@@ -38,27 +48,42 @@
             }
 
             button {
-                width: 100%;
+                color: inherit;
                 border: none;
                 background: transparent;
-                color: inherit;
                 font: inherit;
-                /*text-align: left;*/
+                text-align: left;
                 cursor: pointer;
+                min-width: calc(1.5rem * 1.5);
+            }
+
+            button:focus {
+                outline: none;
+                box-shadow: inset 0 0 0 1px mediumorchid;
             }
 
             button:hover {
                 background: #555;
             }
 
+            .proximity-ui-scan {
+                color: mediumorchid;
+                width: 100%;
+            }
+
             proximity-ui {
                 display: block;
+            }
+
+            header > div,
+            main > div {
                 margin: 0 auto;
                 max-width: 70ch;
             }
 
-            proximity-ui.proximity-ui-incompatible main > div,
-            proximity-ui:not(.proximity-ui-incompatible) .proximity-ui-compatibility {
+            proximity-ui:not(.proximity-ui-in-about):not(.proximity-ui-in-compatibility) .proximity-ui-dialogs,
+            proximity-ui:not(.proximity-ui-in-about) .proximity-ui-about,
+            proximity-ui:not(.proximity-ui-in-compatibility) .proximity-ui-compatibility {
                 display: none;
             }
 
@@ -67,26 +92,85 @@
                 display: none;
             }
 
-            proximity-ui:not(.proximity-ui-has-scan) .proximity-ui-scan,
-            proximity-ui:not(.proximity-ui-has-scan) ul {
+            proximity-ui:not(.proximity-ui-has-scan) .proximity-ui-scan-info,
+            proximity-ui:not(.proximity-ui-has-scan) .proximity-ui-devices {
                 display: none;
             }
 
-            main > div > :not(:first-child),
-            li:not(:first-child) > * {
+            proximity-ui.proximity-ui-has-scan .proximity-intro {
+                display: none;
+            }
+
+            main > div > p,
+            main li > * {
                 border-top: 1px solid #555;
             }
 
             header {
                 position: sticky;
-                box-shadow: 0 0 2px rgba(0, 0, 0, 0.66);
+                box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.33);
                 background: #333;
                 top: 0;
+            }
+
+            header > div {
+                display: flex;
+            }
+
+            header h1 {
+                flex: auto;
             }
 
             small {
                 font-size: 0.875em;
                 color: #aaa;
+            }
+
+            h1 img {
+                vertical-align: middle;
+            }
+
+            a {
+                color: mediumorchid;
+                text-decoration: none;
+            }
+
+            button,
+            .proximity-intro,
+            .proximity-powered-by {
+                text-align: center;
+            }
+
+            .proximity-powered-by {
+                text-align: right;
+            }
+
+            .proximity-ui-dialogs {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.66);
+                padding: calc(1.5rem / 4);
+                padding-top: calc(1.5rem + 2 * 1.5rem / 4 + 1.5rem / 4);
+            }
+
+            .proximity-ui-dialogs > div {
+                margin: 0 auto;
+                max-width: 70ch;
+                background: #333;
+                border-radius: calc(1.5rem / 8);
+            }
+
+            .proximity-ui-dialogs h1 {
+                font-weight: bold;
+            }
+
+            .proximity-ui-compatibility ul {
+                list-style: disc;
+                padding: calc(1.5rem / 4);
+                padding-left: 1.5rem;
             }
         </style>
     </head>
@@ -94,25 +178,49 @@
     <body>
         <proximity-ui>
             <header>
-                <h1>Proximity</h1>
-            </header>
-            <main>
-                <p class="proximity-ui-compatibility">Browser not supported :/</p>
                 <div>
-                    <button>
-                        📶
-                        <span>Scan</span>
-                        <span>Scanning…</span>
+                    <h1><img src="icon.svg"></img> Proximity</h1>
+                    <button>ℹ</button>
+                </div>
+            </header>
+
+            <main>
+                <div>
+                    <button class="proximity-ui-scan">
+                        <span>▶ Scan</span>
+                        <span>■ Scanning…</span>
                     </button>
-                    <p class="proximity-ui-scan"></p>
-                    <ul></ul>
+                    <p class="proximity-intro">
+                        Scan for nearby devices participating in Exposure Notifications.
+                    </p>
+                    <p class="proximity-ui-scan-info"></p>
+                    <ul class="proximity-ui-devices"></ul>
                     <template>
                         <li>
-                            <p>📱 <span></span> <small></small></p>
+                            <p><span></span> <small></small></p>
                         </li>
                     </template>
                 </div>
             </main>
+
+            <div class="proximity-ui-dialogs">
+                <div class="proximity-ui-about">
+                    <p>
+                        With friendly support by
+                        <a href="https://listling.org/" target="_blank">Listling</a>.
+                    </p>
+                </div>
+                <div class="proximity-ui-compatibility">
+                    <p>
+                        Please enable the experimental Web Bluetooth feature:
+                    </p>
+                    <ul class="proximity-ui-dialog-selectable">
+                        <li>
+                            Chrome: chrome://flags/#enable-experimental-web-platform-features
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </proximity-ui>
     </body>
 </html>
