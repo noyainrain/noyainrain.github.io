@@ -1,6 +1,6 @@
 /** TODO */
 
-// v42
+// v47
 
 addEventListener("install", event => {
     skipWaiting();

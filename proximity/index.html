@@ -22,6 +22,25 @@
                 font: medium / 1.5 monospace, monospace;
                 color: white;
                 background: #333;
+                overflow-wrap: break-word;
+                --proximity-size-m: 1.5rem;
+                --proximity-size-s: 0.5rem;
+                --proximity-size-xs: 0.25rem;
+            }
+
+            pre {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                font: 0.875em / 1.5 monospace, monospace;
+                color: #333;
+                white-space: pre-wrap;
+            }
+
+            pre:empty {
+                display: none;
             }
 
             body {
@@ -30,9 +49,11 @@
 
             h1,
             p,
-            button {
+            ul,
+            button,
+            pre {
                 display: block;
-                padding: calc(1.5rem / 4);
+                padding: var(--proximity-size-s);
                 margin: 0;
             }
 
@@ -41,7 +62,7 @@
                 font-weight: inherit;
             }
 
-            ul {
+            .proximity-ui-devices {
                 padding: 0;
                 margin: 0;
                 list-style: none;
@@ -54,7 +75,7 @@
                 font: inherit;
                 text-align: left;
                 cursor: pointer;
-                min-width: calc(1.5rem * 1.5);
+                min-width: calc(var(--proximity-size-m) + 2 * var(--proximity-size-s));
             }
 
             button:focus {
@@ -79,11 +100,16 @@
             main > div {
                 margin: 0 auto;
                 max-width: 70ch;
+                padding-inline: var(--proximity-size-s);
             }
 
-            proximity-ui:not(.proximity-ui-in-about):not(.proximity-ui-in-compatibility) .proximity-ui-dialogs,
+            main > div {
+                padding: var(--proximity-size-s);
+            }
+
+            proximity-ui:not(.proximity-ui-in-about):not(.proximity-ui-in-experimental) .proximity-ui-dialogs,
             proximity-ui:not(.proximity-ui-in-about) .proximity-ui-about,
-            proximity-ui:not(.proximity-ui-in-compatibility) .proximity-ui-compatibility {
+            proximity-ui:not(.proximity-ui-in-experimental) .proximity-ui-experimental {
                 display: none;
             }
 
@@ -152,25 +178,23 @@
                 right: 0;
                 bottom: 0;
                 background: rgba(0, 0, 0, 0.66);
-                padding: calc(1.5rem / 4);
-                padding-top: calc(1.5rem + 2 * 1.5rem / 4 + 1.5rem / 4);
+                padding: var(--proximity-size-s);
+                padding-top: calc(var(--proximity-size-m) + 3 * var(--proximity-size-s));
             }
 
             .proximity-ui-dialogs > div {
                 margin: 0 auto;
                 max-width: 70ch;
                 background: #333;
-                border-radius: calc(1.5rem / 8);
+                border-radius: var(--proximity-size-xs);
             }
 
             .proximity-ui-dialogs h1 {
                 font-weight: bold;
             }
 
-            .proximity-ui-compatibility ul {
-                list-style: disc;
-                padding: calc(1.5rem / 4);
-                padding-left: 1.5rem;
+            ul {
+                padding-left: var(--proximity-size-m);
             }
         </style>
     </head>
@@ -207,10 +231,10 @@
                 <div class="proximity-ui-about">
                     <p>
                         With friendly support by
-                        <a href="https://listling.org/" target="_blank">Listling</a>.
+                        <a href="https://listling.org/" target="_blank">Listling</a>
                     </p>
                 </div>
-                <div class="proximity-ui-compatibility">
+                <div class="proximity-ui-experimental">
                     <p>
                         Please enable the experimental Web Bluetooth feature:
                     </p>
@@ -221,6 +245,8 @@
                     </ul>
                 </div>
             </div>
+
+            <pre></pre>
         </proximity-ui>
     </body>
 </html>

@@ -1,37 +1,34 @@
-/* TODO */
+/*
+ * Proximity
+ * Released into the public domain
+ * https://github.com/noyainrain/noyainrain.github.io/tree/master/proximity
+ */
 
-class Scan {
-    constructor(startTime, bleScan) {
-        this.startTime = startTime;
-        this.endTime = null;
-        this.devices = new Map();
-        this.bleScan = bleScan;
-    }
-}
+/** Web app to scan for nearby devices participating in Exposure Notifications. */
 
+/** Proximity UI. */
 class ProximityUI extends HTMLElement {
     constructor() {
         super();
 
-        const report = error => {
-            this.querySelector("main").textContent = `${error.constructor.name}: ${error.message} ${error.stack || "?"}`;
+        const crash = error => {
+            this.querySelector("pre").textContent =
+                `${error.constructor.name}: ${error.message}\n${error.stack || "?"}`;
         };
-        self.addEventListener("error", event => report(event.error));
-        self.addEventListener("unhandledrejection", event => report(event.reason));
-
-        (async () => {
-            await navigator.serviceWorker.register("service.js");
-        })();
+        addEventListener("error", event => crash(event.error));
+        addEventListener("unhandledrejection", event => crash(event.reason));
+        (async () => await navigator.serviceWorker.register("service.js"))();
 
         this._scan = null;
         this._renderInterval = null;
 
-        document.querySelector(".proximity-ui-scan").addEventListener("click", async () => {
+        this.querySelector(".proximity-ui-scan").addEventListener("click", async () => {
             if (!navigator.bluetooth) {
-                this.classList.add("proximity-ui-in-compatibility");
+                this.classList.add("proximity-ui-in-experimental");
                 return;
             }
 
+            // CONTINUE REVIEW
             if (this._scan && !this._scan.endTime) {
                 this._scan.bleScan.stop();
                 this._onStop();
@@ -39,7 +36,12 @@ class ProximityUI extends HTMLElement {
                 try {
                     const filters = [{services: [0xFD6F]}];
                     const bleScan = await navigator.bluetooth.requestLEScan({filters});
-                    this._scan = new Scan(new Date(), bleScan);
+                    this._scan = {
+                        startTime: new Date(),
+                        endTime: null,
+                        devices: new Map(),
+                        bleScan
+                    };
                     this.classList.add("proximity-ui-has-scan");
                 } catch (e) {
                     if (e instanceof DOMException && e.name === "NotAllowedError") {
@@ -62,7 +64,7 @@ class ProximityUI extends HTMLElement {
         document.querySelector(".proximity-ui-dialogs").addEventListener(
             "click", () => {
                 if (!this.querySelector(".proximity-ui-dialog-selectable").contains(event.target)) {
-                    this.classList.remove("proximity-ui-in-about", "proximity-ui-in-compatibility")
+                    this.classList.remove("proximity-ui-in-about", "proximity-ui-in-experimental")
                 }
             }
         );
